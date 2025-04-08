@@ -1,63 +1,55 @@
-import Arianne from './assets/Projets/Real/Ariane/Format de fichier image AV1.avif'
-import Yeux_Mouille from './assets/Projets/Real/Yeux mouillées/Format de fichier image AV1.avif'
-import Nuages_Noirs from './assets/Projets/Real/Nuages noirs/Format de fichier image AV1.avif'
-import Cigale from './assets/Projets/Chef_op/Teaser la Cigale/Format de fichier image AV1.avif'
-import Shoot_Bre from './assets/Projets/Photographe/Bre Emma/Format de fichier image AV1.avif'
-import SmoothHeader from './smoothHeader'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Arianne from './assets/Projets/Real/Ariane/arianne.avif';
+import Yeux_Mouille from './assets/Projets/Real/Yeux mouillées/Format de fichier image AV1.avif';
+import Nuages_Noirs from './assets/Projets/Real/Nuages noirs/Format de fichier image AV1.avif';
+import Cigale from './assets/Projets/Chef_op/Teaser la Cigale/Format de fichier image AV1.avif';
+import Shoot_Bre from './assets/Projets/Photographe/Bre Emma/Format de fichier image AV1.avif';
+import Contact from './pages/Contact';
+import Shop from './pages/Shop';
+import Header from './Header';
 
 const pages = [
-  {
-    path: Arianne,
-    alt: "Arianne"
-  },
-  {
-    path: Yeux_Mouille,
-    alt: "Yeux_Mouille"
-  },
-  {
-    path: Nuages_Noirs,
-    alt: "Nuages_Noirs"
-  },
-  {
-    path: Cigale,
-    alt: "Cigale"
-  },
-  {
-    path: Shoot_Bre,
-    alt: "Shoot_Bre"
-  },
+  { path: Arianne, alt: "Arianne", role: ["director", "DOP", "editor", "colorist"] },
+  { path: Yeux_Mouille, alt: "Yeux_Mouille", role: ["director", "DOP", "editor", "colorist"] },
+  { path: Nuages_Noirs, alt: "Nuages_Noirs", role: ["director", "DOP", "editor", "colorist"] },
+  { path: Cigale, alt: "Cigale", role: ["director", "DOP", "editor", "colorist"] },
+  { path: Shoot_Bre, alt: "Shoot_Bre", role: ["director", "DOP", "editor", "colorist"] },
 ];
 
-function mainImg(props) {
-  const { path, alt } = props
-
+function MainImg({ path, alt }) {
   return (
-    <div className="w-screen">
-      <img className="size-fit object-cover object-center" src={path} alt={alt} />
+    <div className="h-screen w-screen snap-start shrink-0 overflow-hidden">
+      <img
+        className="h-full w-full object-cover object-center"
+        src={path}
+        alt={alt}
+        draggable={false}
+      />
     </div>
-    );
+  );
 }
-
-function myHeader() {
+function Home() {
   return (
-    <div className='fixed w-full p-8 flex justify-end gap-x-8'
-    // style={{border: '1px solid red'}}
-    >
-      <p className='text-white text-2xl'>Contact</p>
-      <p className='text-white text-2xl'>About</p>
-    </div>
+    <>
+      <Header />
+      <div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+        {pages.map((p, i) => (
+          <MainImg key={i} path={p.path} alt={p.alt} />
+        ))}
+      </div>
+    </>
   );
 }
 
 function App() {
   return (
-    <div className="w-screen scroll-smooth">
-      <SmoothHeader />
-      { myHeader() }
-      { pages.map(p => {
-        return mainImg(p);
-      }) }
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
   );
 }
 

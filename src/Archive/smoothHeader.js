@@ -28,7 +28,7 @@ const SmoothHeader = () => {
         <img
           src={Monolove}
           className="animated-title h-auto object-cover"
-          style={{ width: `${translateY > 40 ? convertRange(translateY) : 15 }%`, opacity: '50%', mixBlendMode: 'difference' }}
+          style={{ width: `${translateY > 40 ? convertRange(translateY) : 15 }%` }}
           alt="Fullscreen Background"
         />
       </div>
